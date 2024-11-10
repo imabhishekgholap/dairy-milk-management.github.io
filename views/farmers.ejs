@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmers</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Farmers</h1>
+    <form action="/farmers/add" method="POST">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="contact" placeholder="Contact" required>
+        <button type="submit">Add Farmer</button>
+    </form>
+    <ul>
+        <% farmers.forEach(farmer => { %>
+            <li>
+                <%= farmer.name %> - <%= farmer.contact %>
+                <form action="/farmers/delete/<%= farmer._id %>" method="POST" class="inline-form">
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>

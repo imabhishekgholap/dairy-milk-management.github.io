@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milk Records</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Milk Records</h1>
+    <form action="/milk-records/add" method="POST">
+        <select name="farmer" required>
+            <% farmers.forEach(farmer => { %>
+                <option value="<%= farmer._id %>"><%= farmer.name %></option>
+            <% }); %>
+        </select>
+        <input type="number" name="quantity" placeholder="Quantity (liters)" required>
+        <input type="number" name="temperature" placeholder="Temperature (°C)" required>
+        <input type="number" name="fatContent" placeholder="Fat Content (%)" required>
+        <input type="number" name="price" placeholder="Price (₹)" required>
+        <button type="submit">Add Record</button>
+    </form>
+    <ul>
+        <% milkRecords.forEach(record => { %>
+            <li>
+                <% if (record.farmer) { %>
+                    <%= record.farmer.name %>: <%= record.quantity %> liters, <%= record.temperature %>°C, <%= record.fatContent %>% fat, ₹<%= record.price %>
+                <% } else { %>
+                    Unknown Farmer: <%= record.quantity %> liters, <%= record.temperature %>°C, <%= record.fatContent %>% fat, ₹<%= record.price %>
+                <% } %>
+                <form action="/milk-records/delete/<%= record._id %>" method="POST" class="inline-form">
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
